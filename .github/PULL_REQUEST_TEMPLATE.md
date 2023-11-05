@@ -1,7 +1,7 @@
 ## Description
 Please include a summary of the changes.
 
-**fixes** #(issue_number)
+fixes #(issue_number)
 
 ## Type of change
 Please delete options that are not relevant.
