@@ -19,7 +19,7 @@ Factors Considered:
 Enrollment data from previous terms.
 Learning profile, including past performance, interests, and goals.
 Feedback from other students who have taken similar courses.
-Student's schedule and other commitments.
+Student's schedule and other commitments. 
 
 Recommendation Generation:
 
