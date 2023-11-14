@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Login API
   version: 1.0.0.0
-  description: Login
+  description: Login for students and pods
 servers:
   - url: https://127.0.0.1:5000
     variables: {}
