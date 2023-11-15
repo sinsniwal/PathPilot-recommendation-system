@@ -14,6 +14,13 @@ class Course(models.Model):
     feedback = (
         models.JSONField()
     )  # JSON field for feedback, assuming it's a string array
+    level = models.TextChoices(
+        "level", 
+        "foundation diploma bsc bs"
+    )
+         # Text field for level
+    
+    level = models.CharField(max_length=20, choices=level.choices)
 
     def __str__(self):
         return self.course_name
