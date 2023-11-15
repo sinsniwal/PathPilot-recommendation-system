@@ -43,7 +43,7 @@ class Student(models.Model):
     commitment = models.IntegerField()  # Integer field for the student's commitment
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 
 # Pod Model
@@ -56,4 +56,4 @@ class POD(models.Model):
     pod_id = models.CharField(max_length=20)  # String field for the pod's id
 
     def __str__(self):
-        return self.name
+        return self.user.username
