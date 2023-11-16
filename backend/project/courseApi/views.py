@@ -3,7 +3,7 @@ from authApi.models import Student
 from .models import Course, Feedback
 from .serializers import FeedbackSerializer
 from rest_framework import status
-from django.shortcuts import render
+from django.db.models import Avg
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -11,7 +11,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 def student_authenticator(request):
     """
-    authenticator authenticates the incoming request and validates if it contains a valid token.
+    student_authenticator authenticates the incoming request and validates if it contains a valid token.
     It returns a student decrypting it from the token.
     """
 
@@ -28,6 +28,25 @@ def student_authenticator(request):
 
     return student_user
 
+def course_authenticator(request, course_code):
+
+    """
+    course_authenticator authenticates the incoming request and validates if it contains a valid token.
+    It returns a course associated with the given course_code.
+    """
+
+    JWTAuthentication().authenticate(request)
+
+    try:
+        course = Course.objects.get(course_code = course_code)
+    except:
+        return Response({
+            "message": "course associated with the given course_code doesn't exist!",
+            "status": status.HTTP_400_BAD_REQUEST
+        })
+    
+    return course
+
 #TODO: create tests for getRoadmap()
 def getRoadmap(courses_completed: list):
     """
@@ -36,7 +55,6 @@ def getRoadmap(courses_completed: list):
     our_model = Model()
     roadmap = our_model.predict(courses_completed)
     return roadmap
-    
 
 class CourseAPI(APIView):
     def get(self, request):
@@ -54,15 +72,7 @@ class CourseAPI(APIView):
 
 class CourseFeedbackAPI(APIView):
     def get(self, request, course_code):
-        JWTAuthentication().authenticate(request)
-
-        try:
-            course = Course.objects.get(course_code = course_code)
-        except:
-            return Response({
-                "message": "course associated with the given course_code doesn't exist!",
-                "status": status.HTTP_400_BAD_REQUEST
-            })
+        course = course_authenticator(request, course_code)
 
         feedbacks = Feedback.objects.filter(course = course).all()
 
@@ -155,4 +165,30 @@ class EditFeedbackAPI(APIView):
 
         return Response({
             "message": "Feedback deleted successfully",
+        })
+
+class CourseStatsAPI(APIView):
+    def get(self, request, course_code):
+        course = course_authenticator(request, course_code)
+        average_rating = Feedback.objects.filter(course = course).aggregate(Avg('rating'))['rating__avg']
+        n_students = Student.objects.filter(completed_courses = course).count()
+
+        return Response({
+            "course_code": course_code,
+            "average_rating": average_rating,
+            "n_students": n_students
+        })
+
+class LevelStatsAPI(APIView):
+    def get(self, request, level):
+        JWTAuthentication().authenticate(request)
+
+        level_courses = Course.objects.filter(level = level).all()
+        average_rating = Feedback.objects.filter(course__in = level_courses).aggregate(Avg('rating'))['rating__avg']
+        n_students = Student.objects.filter(completed_courses__in = level_courses).distinct().count()
+
+        return Response({
+            "level": level,
+            "average_rating": average_rating,
+            "n_students_completed_some_course_in_level": n_students,
         })
