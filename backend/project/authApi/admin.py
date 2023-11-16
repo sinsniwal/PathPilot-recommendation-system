@@ -14,8 +14,9 @@ class UserAgentAdmin(UserAdmin):
         "last_name",
     )
 
+
 class StudentAdmin(admin.ModelAdmin):
-    filter_horizontal = ('completed_courses', )
+    filter_horizontal = ("completed_courses",)
 
 
 admin.site.register(CustomUser, UserAgentAdmin)

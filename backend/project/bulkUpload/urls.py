@@ -16,15 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from authApi import views
+from bulkUpload import views
 
 urlpatterns = [
-    path("", views.hello_world, name="hello_world"),
-    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("register/", views.RegisterAPI.as_view(), name="register"),
-    path("login/", views.LoginAPI.as_view(), name="login"),
-    path("is-logged-in/", views.isLoggedin, name="is-logged-in"),
+    path("", views.bulkUpload, name="bulkUpload"),
+    path("get_excel_file/", views.get_excel_file, name="get_excel_file"),
 ]

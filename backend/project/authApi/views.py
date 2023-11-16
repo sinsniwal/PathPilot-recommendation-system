@@ -1,7 +1,10 @@
 from django.contrib.auth import authenticate
 from rest_framework import status
-from rest_framework.decorators import (api_view, authentication_classes,
-                                       permission_classes)
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,9 +22,7 @@ def hello_world(request):
 
 @api_view(["GET"])
 def isLoggedin(request):
-    print(request.headers["Authorization"].split(" ")[1].strip('"'))
     a = JWTAuthentication().authenticate(request)
-    print(a)
     if a:
         return Response({"message": "User is logged in."})
     else:
@@ -83,8 +84,6 @@ class RegisterAPI(APIView):
                 student = Student()
                 student.user = user
                 student.roll_no = request.data.get("roll_no")
-                student.schedule = request.data.get("schedule")
-                student.commitment = request.data.get("commitment")
                 student.save()
                 refresh = RefreshToken.for_user(user)
                 return Response(
@@ -95,7 +94,7 @@ class RegisterAPI(APIView):
                     }
                 )
             except:
-                return Response({"message": "Invalidddd Data", "status": 400})
+                return Response({"message": "Invalid Data", "status": 400})
         elif request.data.get("user_type") == "pod":
             try:
                 # first create customUser
