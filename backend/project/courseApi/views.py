@@ -107,3 +107,52 @@ class StudentFeedbackAPI(APIView):
             "feedback": FeedbackSerializer(feedback).data
         })
         
+class EditFeedbackAPI(APIView):
+    def post(self, request, fid):
+        student_user = student_authenticator(request)
+
+        try:
+            feedback = Feedback.objects.get(fid = fid)
+            if feedback.student != student_user:
+                return Response({
+                    "message": "You cannot modify feedback of some other student",
+                    "status": status.HTTP_406_NOT_ACCEPTABLE
+                })
+
+            feedback.rating = request.data.get("rating")
+            feedback.title = request.data.get("title")
+            feedback.description = request.data.get("description")
+            feedback.save()
+            
+        except:
+            return Response({
+                "message": "Invalid data",
+                "status": status.HTTP_400_BAD_REQUEST
+            })
+    
+        return Response({
+            "message": "Feedback saved successfully",
+            "feedback": FeedbackSerializer(feedback).data
+        })
+
+    def delete(self, request, fid):
+        student_user = student_authenticator(request)
+        try:
+            feedback = Feedback.objects.get(fid = fid)
+            if feedback.student != student_user:
+                return Response({
+                    "message": "You cannot delete feedback of some other student",
+                    "status": status.HTTP_406_NOT_ACCEPTABLE
+                })
+
+            feedback.delete()
+
+        except:
+            return Response({
+                "message": "Invalid data",
+                "status": status.HTTP_400_BAD_REQUEST
+            })
+
+        return Response({
+            "message": "Feedback deleted successfully",
+        })
