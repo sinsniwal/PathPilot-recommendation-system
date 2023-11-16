@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from courseApi.models import Course
+from courseApi.models import Course, Feedback
 
 # Create your models here.
 
@@ -39,6 +39,7 @@ class Student(models.Model):
     completed_courses = models.ManyToManyField(
         "courseApi.Course"
     )  # Many-to-Many relationship for completed courses
+    # feedbacks = models.ForeignKey(Feedback, on_delete=models.CASCADE, null=True)    # associated course feedbacks by the student.
     schedule = models.IntegerField()  # Integer field for the student's schedule
     commitment = models.IntegerField()  # Integer field for the student's commitment
 
