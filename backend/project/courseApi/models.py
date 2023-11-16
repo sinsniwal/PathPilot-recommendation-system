@@ -11,9 +11,9 @@ class Course(models.Model):
     status = models.CharField(max_length=20)  # String field for the status
     active = models.BooleanField()  # Boolean field for active status
     comment = models.TextField()  # Text field for comments
-    feedback = (
-        models.JSONField()
-    )  # JSON field for feedback, assuming it's a string array
+    # feedback = (
+    #     models.JSONField()
+    # )  # JSON field for feedback, assuming it's a string array
     level = models.TextChoices(
         "level", 
         "foundation diploma bsc bs"

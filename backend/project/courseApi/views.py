@@ -18,7 +18,6 @@ class CourseAPI(APIView):
     def get(self, request):
 
         token = request.headers.get('Bearer')     #no validation till now for token  
-
         roadmap = getRoadmap([])
 
         return Response({
