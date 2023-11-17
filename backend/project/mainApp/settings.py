@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "authApi.apps.AuthapiConfig",
     "courseApi.apps.CourseapiConfig",
+    "bulkUpload.apps.BulkuploadConfig",
     "rest_framework",
     "rest_framework.authtoken",
     "drf_yasg",

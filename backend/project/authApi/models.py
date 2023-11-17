@@ -32,14 +32,11 @@ class Student(models.Model):
         CustomUser, on_delete=models.CASCADE, primary_key=True
     )  # One-to-One relationship with the user model
     roll_no = models.CharField(
-        max_length=20
+        max_length=20, unique=True
     )  # String field for the student's roll number
     completed_courses = models.ManyToManyField(
-        "courseApi.Course"
+        "courseApi.Course", blank=True
     )  # Many-to-Many relationship for completed courses
-
-    schedule = models.IntegerField()  # Integer field for the student's schedule
-    commitment = models.IntegerField()  # Integer field for the student's commitment
 
     def __str__(self):
         return self.user.username
@@ -52,7 +49,9 @@ class POD(models.Model):
     user = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE, primary_key=True
     )  # One-to-One relationship with the user model
-    pod_id = models.CharField(max_length=20)  # String field for the pod's id
+    pod_id = models.CharField(
+        max_length=20, unique=True
+    )  # String field for the pod's id
 
     def __str__(self):
         return self.user.username
