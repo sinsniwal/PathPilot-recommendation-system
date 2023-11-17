@@ -10,8 +10,6 @@ COPY . .
 
 WORKDIR /backend/project
 
-RUN python manage.py makemigrations
-
 RUN python manage.py migrate
 
 EXPOSE 8000
