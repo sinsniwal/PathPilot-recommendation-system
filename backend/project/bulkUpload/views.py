@@ -1,22 +1,21 @@
 from io import BytesIO
 
 import pandas as pd
+from django.contrib.auth.decorators import user_passes_test
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.decorators import user_passes_test
+from rest_framework.decorators import api_view
 
 from authApi.models import POD, CustomUser, Student  # Import your Django models
 from courseApi.models import Course, Feedback  # Import your Django models
-from rest_framework.decorators import api_view
+
 
 @user_passes_test(lambda u: u.is_superuser)
 @api_view(["GET", "POST"])
 def bulkUpload(request):
-
     if request.method == "POST":
-    
         excel_file = request.FILES["excel_file"]
 
         # Read the Excel file into a dictionary of DataFrames, with sheet names as keys
