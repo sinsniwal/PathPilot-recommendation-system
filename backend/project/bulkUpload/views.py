@@ -23,9 +23,9 @@ def bulkUpload(request):
         excel_data = read_excel(excel_file)
 
         # Create bulk objects for each model
+        course_message = (create_bulk_course(excel_data.get("Course")),)
         student_message = (create_bulk_student(excel_data.get("Student")),)
         pod_message = (create_bulk_pod(excel_data.get("POD")),)
-        course_message = (create_bulk_course(excel_data.get("Course")),)
         feedback_message = create_bulk_feedback(excel_data.get("Feedback"))
         # Get sheet names
         if student_message and pod_message and course_message and feedback_message:
