@@ -25,14 +25,13 @@ def student_authenticator(request):
     try:
         student_user = Student.objects.get(user=user)
     except:
-        return Response(
+        return None, Response(
             {
                 "message": "You must be a student to get recommendation!",
-                "status": status.HTTP_400_BAD_REQUEST,
-            }
+            }, status=status.HTTP_400_BAD_REQUEST
         )
 
-    return student_user
+    return student_user, None
 
 
 def course_authenticator(request, course_code):
@@ -46,14 +45,13 @@ def course_authenticator(request, course_code):
     try:
         course = Course.objects.get(course_code=course_code)
     except:
-        return Response(
+        return None, Response(
             {
                 "message": "course associated with the given course_code doesn't exist!",
-                "status": status.HTTP_400_BAD_REQUEST,
-            }
+            }, status=status.HTTP_400_BAD_REQUEST
         )
 
-    return course
+    return course, None
 
 
 # TODO: create tests for getRoadmap()
@@ -68,7 +66,9 @@ def getRoadmap(courses_completed: list):
 
 class CourseAPI(APIView):
     def get(self, request):
-        student_user = student_authenticator(request)
+        student_user, err = student_authenticator(request)
+        if err != None:
+            return err
 
         completed_courses = student_user.completed_courses.all()
         completed_courses = [course.course_code for course in completed_courses]
@@ -80,7 +80,9 @@ class CourseAPI(APIView):
 
 class CourseFeedbackAPI(APIView):
     def get(self, request, course_code):
-        course = course_authenticator(request, course_code)
+        course, err = course_authenticator(request, course_code)
+        if err != None:
+            return err
 
         feedbacks = Feedback.objects.filter(course=course).all()
 
@@ -96,7 +98,10 @@ class CourseFeedbackAPI(APIView):
 
 class StudentFeedbackAPI(APIView):
     def get(self, request):
-        student_user = student_authenticator(request)
+        student_user, err = student_authenticator(request)
+        if err != None:
+            return err
+
         feedbacks = Feedback.objects.filter(student=student_user).all()
 
         return Response(
@@ -107,7 +112,9 @@ class StudentFeedbackAPI(APIView):
         )
 
     def post(self, request):
-        student_user = student_authenticator(request)
+        student_user, err = student_authenticator(request)
+        if err != None:
+            return err
 
         try:
             feedback = Feedback()
@@ -123,7 +130,7 @@ class StudentFeedbackAPI(APIView):
 
         except:
             return Response(
-                {"message": "Invalid data", "status": status.HTTP_400_BAD_REQUEST}
+                {"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST
             )
 
         return Response(
@@ -136,7 +143,9 @@ class StudentFeedbackAPI(APIView):
 
 class EditFeedbackAPI(APIView):
     def post(self, request, fid):
-        student_user = student_authenticator(request)
+        student_user, err = student_authenticator(request)
+        if err != None:
+            return err
 
         try:
             feedback = Feedback.objects.get(fid=fid)
@@ -144,8 +153,7 @@ class EditFeedbackAPI(APIView):
                 return Response(
                     {
                         "message": "You cannot modify feedback of some other student",
-                        "status": status.HTTP_406_NOT_ACCEPTABLE,
-                    }
+                    }, status=status.HTTP_406_NOT_ACCEPTABLE
                 )
 
             feedback.rating = request.data.get("rating")
@@ -166,22 +174,24 @@ class EditFeedbackAPI(APIView):
         )
 
     def delete(self, request, fid):
-        student_user = student_authenticator(request)
+        student_user, err = student_authenticator(request)
+        if err != None:
+            return err
+
         try:
             feedback = Feedback.objects.get(fid=fid)
             if feedback.student != student_user:
                 return Response(
                     {
                         "message": "You cannot delete feedback of some other student",
-                        "status": status.HTTP_406_NOT_ACCEPTABLE,
-                    }
+                    }, status=status.HTTP_406_NOT_ACCEPTABLE
                 )
 
             feedback.delete()
 
         except:
             return Response(
-                {"message": "Invalid data", "status": status.HTTP_400_BAD_REQUEST}
+                {"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST
             )
 
         return Response(
@@ -193,7 +203,10 @@ class EditFeedbackAPI(APIView):
 
 class CourseStatsAPI(APIView):
     def get(self, request, course_code):
-        course = course_authenticator(request, course_code)
+        course, err = course_authenticator(request, course_code)
+        if err != None:
+            return err
+
         average_rating = Feedback.objects.filter(course=course).aggregate(
             Avg("rating")
         )["rating__avg"]
