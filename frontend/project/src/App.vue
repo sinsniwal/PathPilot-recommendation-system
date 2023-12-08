@@ -1,19 +1,18 @@
 <template>
   <Navbar></Navbar>
-  <HelloWorldVue></HelloWorldVue>
-  <button type="button" class="btn btn-warning">Warning</button>
+  <Home></Home>
 </template>
 
 <script>
 
 import Navbar from './components/Navbar.vue';
-import HelloWorldVue from './components/HelloWorld.vue';
+import Home from './components/Home.vue';
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    HelloWorldVue
+    Home
   }
 }
 </script>

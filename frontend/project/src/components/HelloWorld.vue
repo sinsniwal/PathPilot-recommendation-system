@@ -1,3 +1,3 @@
 <template>
-  <h3>This is where our contents go,,,,,</h3>
+  <h3>This is where our content goes,,,,,</h3>
 </template>
