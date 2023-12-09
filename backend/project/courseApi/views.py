@@ -9,6 +9,7 @@ from authApi.models import Student
 from .models import Course, Feedback
 from .serializers import FeedbackSerializer
 from .utils import Model
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -87,6 +88,7 @@ class CourseFeedbackAPI(APIView):
         return Response(
             {
                 "course_code": course_code,
+                "course_name": course.course_name,
                 "feedbacks": FeedbackSerializer(
                     feedbacks, many=True
                 ).data,  # many=True because it would contain a list of feedbacks
@@ -98,7 +100,6 @@ class StudentFeedbackAPI(APIView):
     def get(self, request):
         student_user = student_authenticator(request)
         feedbacks = Feedback.objects.filter(student=student_user).all()
-
         return Response(
             {
                 "roll_no": student_user.roll_no,
@@ -202,6 +203,7 @@ class CourseStatsAPI(APIView):
         return Response(
             {
                 "course_code": course_code,
+                "course_name": course.course_name,
                 "average_rating": average_rating,
                 "n_students": n_students,
             }
