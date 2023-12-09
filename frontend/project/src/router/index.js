@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+//import FeedbackComponent from '../views/FeedBackView.vue'
 
 const routes = [
   {
@@ -8,13 +9,40 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/course/feedback/:course_code',
+    name: 'feedback',
+    component: () => import('../views/FeedBackView.vue')
+  },
+  {
+    path: '/course/feedback',
+    name: 'student-feedback',
+    component: () => import('../views/StudentFeedBackView.vue')
+  },
+  {
+    path: '/course/feedback/modify/:feedbackId',
+    name: 'edit-delete-feedback',
+    component: () => import('../views/EditDeleteFeedBackView.vue'),
+  },
+  {
+    path: '/course/post/feedback',
+    name: 'post-feedback',
+    component: () => import('../views/PostFeedBackView.vue'),
+  },
+  {
+    path: '/course/stats/course/:course_code',
+    name: 'course-stats',
+    component: () => import('../views/CourseStatsView.vue'),
+  },
+  {
+    path: '/course/stats/level/:level',
+    name: 'course-stats',
+    component: () => import('../views/LevelStatsView.vue'),
+  },
 ]
 
 const router = createRouter({
