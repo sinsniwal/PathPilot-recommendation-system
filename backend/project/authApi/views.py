@@ -72,61 +72,62 @@ class RegisterAPI(APIView):
                 username=request.data.get("username")
             ).exists():
                 return Response({"message": "Username already exists", "status": 400})
+            if request.data.get("user_type") == "student":
+                try:
+                    # first create customUser
+                    # create student
+                    user = CustomUser()
+                    user.username = request.data.get("username")
+                    user.first_name = request.data.get("first_name")
+                    user.last_name = request.data.get("last_name")
+                    user.email = request.data.get("email")
+                    user.set_password(request.data.get("password"))
+                    user.user_type = request.data.get("user_type")
+                    user.save()
+                    student = Student()
+                    student.user = user
+                    student.roll_no = request.data.get("roll_no")
+                    student.save()
+                    refresh = RefreshToken.for_user(user)
+                    return Response(
+                        {
+                            "access": str(refresh.access_token),
+                            "refresh": str(refresh),
+                            "status": 200,
+                        }
+                    )
+                except:
+                    return Response({"message": "Invalid Data", "status": 400})
+            elif request.data.get("user_type") == "pod":
+                try:
+                    # first create customUser
+                    # create student
+                    user = CustomUser()
+                    user.username = request.data.get("username")
+                    user.first_name = request.data.get("first_name")
+                    user.last_name = request.data.get("last_name")
+                    user.email = request.data.get("email")
+                    user.set_password(request.data.get("password"))
+                    user.user_type = request.data.get("user_type")
+                    user.save()
+
+                    pod = POD()
+                    pod.user = user
+                    pod.pod_id = request.data.get("roll_no")
+                    pod.save()
+
+                    refresh = RefreshToken.for_user(user)
+                    return Response(
+                        {
+                            "access": str(refresh.access_token),
+                            "refresh": str(refresh),
+                            "status": 200,
+                        }
+                    )
+                except:
+                    return Response({"message": "Invalid Data", "status": 400})
+            else:
+                return Response({"message": "Invalid Data", "status": 400})
         except:
             return Response({"message": "Invalid Data", "status": 400})
-        if request.data.get("user_type") == "student":
-            try:
-                # first create customUser
-                # create student
-                user = CustomUser()
-                user.username = request.data.get("username")
-                user.first_name = request.data.get("first_name")
-                user.last_name = request.data.get("last_name")
-                user.email = request.data.get("email")
-                user.set_password(request.data.get("password"))
-                user.user_type = request.data.get("user_type")
-                user.save()
-                student = Student()
-                student.user = user
-                student.roll_no = request.data.get("roll_no")
-                student.save()
-                refresh = RefreshToken.for_user(user)
-                return Response(
-                    {
-                        "access": str(refresh.access_token),
-                        "refresh": str(refresh),
-                        "status": 200,
-                    }
-                )
-            except:
-                return Response({"message": "Invalid Data", "status": 400})
-        elif request.data.get("user_type") == "pod":
-            try:
-                # first create customUser
-                # create student
-                user = CustomUser()
-                user.username = request.data.get("username")
-                user.first_name = request.data.get("first_name")
-                user.last_name = request.data.get("last_name")
-                user.email = request.data.get("email")
-                user.set_password(request.data.get("password"))
-                user.user_type = request.data.get("user_type")
-                user.save()
 
-                pod = POD()
-                pod.user = user
-                pod.pod_id = request.data.get("pod_id")
-                pod.save()
-
-                refresh = RefreshToken.for_user(user)
-                return Response(
-                    {
-                        "access": str(refresh.access_token),
-                        "refresh": str(refresh),
-                        "status": 200,
-                    }
-                )
-            except:
-                return Response({"message": "Invalid Data", "status": 400})
-        else:
-            return Response({"message": "Invalid Data", "status": 400})

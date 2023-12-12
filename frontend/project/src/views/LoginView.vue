@@ -1,7 +1,7 @@
 
 <template>
-            <div class="col-lg-9 p-3 d-flex justify-content-center align-items-center" style="background-color: #e3f3ec;">
-            <form>
+            <div class=" p-3 d-flex justify-content-center align-items-center">
+                <form style="padding: 30px;   background-color: #e3f3ec;">
                 <p v-if="errorMessage" class="error-message" style="color: red;">{{ errorMessage }}</p>
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
@@ -11,9 +11,10 @@
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
                   <input v-model="password" type="password" class="form-control" id="password" aria-describedby="passwordHelp">
-                  <div id="passwordHelp" class="form-text">We'll never share your personal details with anyone else.</div>
                 </div>
                 <button type="button" class="btn btn-primary" style="background-color: #1A2E35;" v-on:click="login">Login</button>
+                <p class="info-message" style="color: rgb(75, 74, 74);">To create account <a href="register">register here.</a></p>
+
             </form>
 
         </div>
@@ -46,11 +47,17 @@ export default {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.access) {
-                        const token = data.access;
                         // Store token in session storage
-                        sessionStorage.setItem('token', token);
+                        sessionStorage.setItem('token', this.token);
+                        sessionStorage.setItem('username', this.username);
+                        
                         // Redirect to home page
-                        this.$router.push('/');
+                        
+                        window.location.href = '/';
+                        
+
+                        
+                        
                     } else {
                         this.errorMessage = 'Invalid credentials. Please try again.';
                     }
