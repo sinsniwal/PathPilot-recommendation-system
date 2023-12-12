@@ -25,6 +25,7 @@ SECRET_KEY = "django-insecure-*^3l516rz=7^l9qnef6mx)vz)x6sfkgoq_y#g01j)0&qa%&0f3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",  # Adjust to your Vue.js frontend URL
     "http://localhost:8000",  # Django development server origin
@@ -33,6 +34,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",  # Vue.js development server origin
     # ... other allowed origins ...
 ]
+
 ALLOWED_HOSTS = []
 
 
@@ -73,6 +75,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 ROOT_URLCONF = "mainApp.urls"
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {

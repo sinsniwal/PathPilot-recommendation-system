@@ -38,7 +38,6 @@ class Model:
             "BSMA3012",
             "BSCS4021",
             "BSMA3014",
-            "BSCS3005",
             "BSMA2001",
         ]
         self.degree_courses_3 = ["BSCS4002", "BSCS4003", "BSCS3031"]
