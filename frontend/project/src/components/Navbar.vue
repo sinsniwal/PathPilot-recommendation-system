@@ -8,7 +8,7 @@
           <div class="navbar-nav ms-auto">
             <a class="nav-item nav-link active" href="#">Home</a>
             <a class="nav-item nav-link" href="#">SignUp</a>
-            <a class="nav-item nav-link" href="#">Login</a>
+            <a class="nav-item nav-link" href="login">Login</a>
             <a class="nav-item nav-link" href="#">Help</a>
             <a class="nav-item nav-link" href="#">FAQ</a>
           </div>
