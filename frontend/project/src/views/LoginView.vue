@@ -50,7 +50,7 @@ export default {
                         // Store token in session storage
                         sessionStorage.setItem('token', data.access);
                         sessionStorage.setItem('username', this.username);
-                        sessionStorage.setItem('usertype',data.usertype)
+                        sessionStorage.setItem('usertype',data.usertype);
                         // Redirect to home page
                         
                         window.location.href = '/';
