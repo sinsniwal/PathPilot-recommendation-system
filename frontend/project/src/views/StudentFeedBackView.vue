@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     async studentFeedback() {
-      const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMTM4Mzk3LCJpYXQiOjE3MDIxMzExODIsImp0aSI6IjA1YmQ5Y2JiMTlkMzQxMzFiODY4MjhiZDdiMDQ3YWRhIiwidXNlcl9pZCI6Mn0.lcUlcpK9HPemUcun6ZctzJKwDnnQkDUaCo1p_K7-NQY';
+      const accessToken = sessionStorage.getItem('token');
 
       // URL of the other API endpoint
       const apiUrl = 'http://localhost:8000/course/feedback';
@@ -128,7 +128,7 @@ export default {
 
 
     async deleteFeedback(feedbackId) {
-      const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMTIzNTYyLCJpYXQiOjE3MDIxMTYzNDgsImp0aSI6IjcyNjI0NWMzZjE5YjQ4MzM5ZjdjYTBmMWRjMzg3YTYwIiwidXNlcl9pZCI6Mn0.hPf92wR6vQ6r8Mc19J72GjuE6pCkQUonhgjdUAZPHjY';
+      const accessToken = sessionStorage.getItem('token');
 
 
 

@@ -101,7 +101,7 @@ export default {
 
 
     async callFeedback() {
-      const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMTM4Mzk3LCJpYXQiOjE3MDIxMzExODIsImp0aSI6IjA1YmQ5Y2JiMTlkMzQxMzFiODY4MjhiZDdiMDQ3YWRhIiwidXNlcl9pZCI6Mn0.lcUlcpK9HPemUcun6ZctzJKwDnnQkDUaCo1p_K7-NQY';
+      const accessToken = sessionStorage.getItem('token');
 
 
 
@@ -137,7 +137,7 @@ export default {
     async editFeedback() {
 
 
-      const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMTM4Mzk3LCJpYXQiOjE3MDIxMzExODIsImp0aSI6IjA1YmQ5Y2JiMTlkMzQxMzFiODY4MjhiZDdiMDQ3YWRhIiwidXNlcl9pZCI6Mn0.lcUlcpK9HPemUcun6ZctzJKwDnnQkDUaCo1p_K7-NQY';
+      const accessToken = sessionStorage.getItem('token');
       // URL of the other API endpoint
       const apiUrlModify = `http://localhost:8000/course/feedback/modify/${this.feedbackId}`;
       console.log(this.editedTitle);
