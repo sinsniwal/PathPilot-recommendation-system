@@ -85,15 +85,16 @@ export default {
                     this.errorMessage='Please fill the form';
                     return;
                 }
-                // Check if email is in correct format
-                if (!this.validateEmail(this.email)) {
-                    this.errorMessage = 'Invalid email format';
-                    return;
-                }
                 if(this.user_type=='student' & !this.validateEmail(this.email2)){
                     this.errorMessage = "Wrong Student email format";
                     return ;
                 }
+                // Check if email is in correct format
+                if (this.user_type=='pod' & !this.validateEmail(this.email)) {
+                    this.errorMessage = 'Invalid email format';
+                    return;
+                }
+
 
                 // Send request to server to register user
                 const response = await fetch('http://127.0.0.1:8000/api-auth/register/', {
@@ -122,6 +123,7 @@ export default {
                             // Store token in session storage
                             sessionStorage.setItem('token', token);
                             sessionStorage.setItem('username', this.username);
+                            sessionStorage.setItem('usertype',data.usertype)
                             // Redirect to home page
                             window.location.href = '/';
                         } else {
