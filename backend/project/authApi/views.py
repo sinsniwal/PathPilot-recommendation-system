@@ -56,6 +56,7 @@ class LoginAPI(APIView):
                             "access": str(refresh.access_token),
                             "refresh": str(refresh),
                             "status": 200,
+                            "usertype": user.user_type,
                         }
                     )
                     return render(request, "blog.html")
@@ -94,6 +95,7 @@ class RegisterAPI(APIView):
                             "access": str(refresh.access_token),
                             "refresh": str(refresh),
                             "status": 200,
+                            "usertype": user.user_type,
                         }
                     )
                 except:
@@ -122,6 +124,7 @@ class RegisterAPI(APIView):
                             "access": str(refresh.access_token),
                             "refresh": str(refresh),
                             "status": 200,
+                            "usertype": user.user_type,
                         }
                     )
                 except:

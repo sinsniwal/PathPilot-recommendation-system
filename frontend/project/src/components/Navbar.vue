@@ -44,8 +44,10 @@ export default {
   methods: {
     logout() {
       sessionStorage.removeItem('token'); // Remove token from session storage
+      sessionStorage.removeItem('username')
       this.token = ''; // Clear token in component data
       this.username = ''; // Clear username in component data
+      window.location.href = '/';
     }
   }
 };
