@@ -4,14 +4,15 @@
             <img src="../assets/pic2.jpg" alt="" class="ms-2" style="width: 100%;">
         </div>
         <div v-if="token" class="col-lg-6 p-2">
-            <div v-if="usertype='student'">
+            <div v-if="usertype=='student'">
                 <h1 class="display-4 fw-bold text-body-emphasis lh-1 mb-2">Navigate Your Learning Journey</h1>
                 <p class="lead"></p>
                 <button type="button" @click="this.$router.push('/recommend')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Recommendation</button>
                 <button type="button" @click="this.$router.push('/course/feedback')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Feedback</button>
                 <button type="button" @click="this.$router.push('/courses')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Courses</button>
             </div>
-            <div v-else-if="usertype='pod'">
+            
+            <div v-else-if="usertype=='pod'">
                 <h1 class="display-4 fw-bold text-body-emphasis lh-1 mb-2">Navigate Your Learning Journey</h1>
                 <p class="lead"></p>
                 <button type="button" @click="this.$router.push('/coursestats')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Course Stats</button>
@@ -33,9 +34,18 @@
 <script>
 
 export default {
+
+
     data() {
-        return {
-            token:sessionStorage.getItem('token'),
-            usertype: sessionStorage.getItem("usertype")
-    };},}
+    return {
+      token:'',
+      username:'',
+      usertype:'',
+    };
+  },
+
+  mounted() {
+    this.token=sessionStorage.getItem('token')
+    this.usertype= sessionStorage.getItem("usertype")
+  },}
 </script>
