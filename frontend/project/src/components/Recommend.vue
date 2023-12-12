@@ -136,8 +136,7 @@ import { onMounted, ref } from 'vue';
         'BSMA2001': 'Mathematical Thinking'
     }
 
-    const token =sessionStorage.getItem('token');
-
+    const token =sessionStorage.getItem("token");
     async function getRecommendation() {
 
         displayRecommendation.value = true
@@ -164,7 +163,7 @@ import { onMounted, ref } from 'vue';
             
             levelCourses(roadmap.value)
             recommendationHistory.value.push(roadmap.value)
-            localStorage.setItem('recommendationHistory', JSON.stringify(recommendationHistory.value))
+            localStorage.setItem('recommendationHistory'+sessionStorage.getItem('username'), JSON.stringify(recommendationHistory.value))
 
         } catch(error) {
             console.error(error)
@@ -194,7 +193,7 @@ import { onMounted, ref } from 'vue';
 
     // implementing history
     onMounted(() => {
-        const storedHistory = localStorage.getItem('recommendationHistory');
+        const storedHistory = localStorage.getItem('recommendationHistory'+sessionStorage.getItem('username'));
         if (storedHistory) {
             recommendationHistory.value = JSON.parse(storedHistory);
             console.log(recommendationHistory.value)
@@ -204,7 +203,7 @@ import { onMounted, ref } from 'vue';
 
     // function clearHistory clears the history from local storage
     function clearHistory() {
-        localStorage.removeItem('recommendationHistory')
+        localStorage.removeItem('recommendationHistory'+sessionStorage.getItem('username'))
         recommendationHistory.value = []
     }
 
