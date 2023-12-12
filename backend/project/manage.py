@@ -8,7 +8,7 @@ def main():
     from distutils.sysconfig import get_python_lib
 
     os.system(
-        f"copy  ./custombase.html  {get_python_lib()}/django/contrib/admin/templates/admin/index.html"
+        f"cp  ./custombase.html  {get_python_lib()}/django/contrib/admin/templates/admin/index.html"
     )
 
     """Run administrative tasks."""
