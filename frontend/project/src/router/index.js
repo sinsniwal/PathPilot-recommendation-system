@@ -15,11 +15,6 @@ const routes = [
     component: Recommend
   },
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
     path: '/course/feedback/:course_code',
     name: 'feedback',
     component: () => import('../views/FeedBackView.vue')
