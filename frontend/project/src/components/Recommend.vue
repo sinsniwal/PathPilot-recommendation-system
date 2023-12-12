@@ -136,7 +136,7 @@ import { onMounted, ref } from 'vue';
         'BSMA2001': 'Mathematical Thinking'
     }
 
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMzc5OTI4LCJpYXQiOjE3MDIzNzI3MjgsImp0aSI6ImM4MzllMWViZTY5MDQ0ZDNiNDE1YzJkMzQ1M2FlMjc3IiwidXNlcl9pZCI6Mn0.-tiQ6V-aM6wsczqNAs38fc9-gtHLhfYDL4pO90oArHo"
+    const token =sessionStorage.getItem('token');
 
     async function getRecommendation() {
 

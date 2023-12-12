@@ -98,7 +98,7 @@ export default {
         async postFeedback() {
             console.log("Hi");
 
-            const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMTMwOTMyLCJpYXQiOjE3MDIxMjM3MTksImp0aSI6IjVhNjg5Zjg4ODUwMDRhNjNhZTU3NjUyZjc4NGFmZWNhIiwidXNlcl9pZCI6Mn0.ODLcvPwHAhBVti-trCX0z6-TOG__wfYVyufAuUBjgL4';
+            const accessToken = sessionStorage.getItem('token');
 
 
             // URL of the other API endpoint
