@@ -47,7 +47,6 @@ export default {
                     const data = await response.json();
                     if (data.access) {
                         const token = data.access;
-                        console.log(token);
                         // Store token in session storage
                         sessionStorage.setItem('token', token);
                         // Redirect to home page
