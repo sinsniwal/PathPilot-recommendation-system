@@ -54,6 +54,7 @@
 </template>
 
 <script setup>
+import router from '@/router';
 import { onMounted, ref } from 'vue';
 
 
@@ -136,7 +137,7 @@ import { onMounted, ref } from 'vue';
         'BSMA2001': 'Mathematical Thinking'
     }
 
-    const token =sessionStorage.getItem("token");
+    const token = ref('');
     async function getRecommendation() {
 
         displayRecommendation.value = true
@@ -150,7 +151,7 @@ import { onMounted, ref } from 'vue';
             const req = await fetch("http://localhost:8000/course/recommend", {
                 method: "GET",
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${token.value}`,
                 }
             })
     
@@ -191,8 +192,16 @@ import { onMounted, ref } from 'vue';
         return courseMapping[coursecode]
     }
 
-    // implementing history
+    // implementing history and getting token
     onMounted(() => {
+
+        const userToken = sessionStorage.getItem('token')
+        if (userToken == null) {
+            router.push('/')
+        }
+
+        token.value = userToken
+
         const storedHistory = localStorage.getItem('recommendationHistory'+sessionStorage.getItem('username'));
         if (storedHistory) {
             recommendationHistory.value = JSON.parse(storedHistory);
