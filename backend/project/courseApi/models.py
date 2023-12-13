@@ -36,9 +36,6 @@ class Feedback(models.Model):
     title = models.CharField(max_length=40)  # Title for Feeback
     description = models.TextField(max_length=150)  # Description for Feedback
 
-    class Meta:
-        unique_together = ["course"]
-
     def __str__(self):
         return f"{self.course.course_name}: Rating({self.rating}), Title({self.title})"
 

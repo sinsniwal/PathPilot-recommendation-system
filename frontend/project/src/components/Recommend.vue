@@ -39,7 +39,7 @@
                     </div>
                     <div class="d-flex flex-wrap justify-content-center mb-4">
                         <div v-for="(course, index) in courseList" :key="index">
-                            →<a :href="'https://study.iitm.ac.in/ds/course_pages/' + course + '.html'" target="_blank"><button type="button" class="btn btn-primary m-2" style="background-color: #148ab5;">{{ getCourseName(course) }} ({{ course }})</button></a>
+                            →<button type="button" class="btn btn-primary m-2" style="background-color: #148ab5;" v-on:click="goCoursePage(course)">{{ getCourseName(course) }} ({{ course }})</button>
                         </div>
                     </div>
                 </div>
@@ -227,6 +227,10 @@ import { onMounted, ref } from 'vue';
 
         levelCourses(history)
         console.log(history)
+    }
+
+    function goCoursePage(courseCode) {
+        router.push({name: 'course', params: {'course_code': courseCode}})
     }
 
 </script>
