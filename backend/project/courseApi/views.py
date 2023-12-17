@@ -73,10 +73,10 @@ class CourseAPI(APIView):
 
         completed_courses = student_user.completed_courses.all()
         completed_courses = [course.course_code for course in completed_courses]
-
+        completed_courses_names = [ (course.course_code, course.course_name) for course in student_user.completed_courses.all()]
         roadmap = getRoadmap(completed_courses)
 
-        return Response({"completed_courses": completed_courses, "roadmap": roadmap})
+        return Response({"completed_courses": completed_courses, "roadmap": roadmap, "completed_courses_names": completed_courses_names})
 
 
 class CourseFeedbackAPI(APIView):
@@ -120,9 +120,11 @@ class StudentFeedbackAPI(APIView):
         try:
             feedback = Feedback()
             feedback.student = student_user
-
-            course = Course.objects.get(course_code=request.data.get("course_code"))
-
+            print(request.data)
+            try:
+                course = Course.objects.get(course_code=request.data.get("course_code"))
+            except:
+                course= Course.objects.get(course_name=request.data.get("courseode"))
             feedback.course = course
             feedback.rating = request.data.get("rating")
             feedback.title = request.data.get("title")
@@ -149,20 +151,22 @@ class EditFeedbackAPI(APIView):
             return err
 
         try:
-            feedback = Feedback.objects.get(fid=fid)
+            feedback = Feedback.objects.filter(fid=int(fid)).first()
+            print(feedback.student,student_user)
             if feedback.student != student_user:
                 return Response(
                     {
                         "message": "You cannot modify feedback of some other student",
                     }, status=status.HTTP_406_NOT_ACCEPTABLE
                 )
-
-            feedback.rating = request.data.get("rating")
+            print(request.data.get("rating"),request.data.get("title"),request.data.get("description"))
+            feedback.rating = int(request.data.get("rating"))
             feedback.title = request.data.get("title")
             feedback.description = request.data.get("description")
             feedback.save()
 
-        except:
+        except Exception as e:
+            print(e)
             return Response(
                 {"message": "Invalid data", "status": status.HTTP_400_BAD_REQUEST}
             )

@@ -28,12 +28,16 @@ const routes = [
     path: '/register',
     name:'register',
     component: () => import('../views/RegisterView.vue')
-  },
-  {
-    path: '/course/feedback/:course_code',
-    name: 'feedback',
+  },{
+    path: '/feedback',
+    name:'feedback',
     component: () => import('../views/FeedBackView.vue')
   },
+  // {
+  //   path: '/course/feedback/:course_code',
+  //   name: 'feedback',
+  //   component: () => import('../views/FeedBackView.vue')
+  // },
   {
     path: '/course/feedback',
     name: 'student-feedback',

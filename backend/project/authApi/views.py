@@ -87,7 +87,10 @@ class RegisterAPI(APIView):
                     user.save()
                     student = Student()
                     student.user = user
-                    student.roll_no = request.data.get("roll_no")
+                    try:
+                        student.roll_no = request.data.get("roll_no")
+                    except:
+                        student.roll_no = request.data.get("email").split("@")[0]
                     student.save()
                     refresh = RefreshToken.for_user(user)
                     return Response(
