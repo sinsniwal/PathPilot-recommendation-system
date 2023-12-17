@@ -8,9 +8,8 @@
                 <h1 class="display-4 fw-bold text-body-emphasis lh-1 mb-2">Navigate Your Learning Journey</h1>
                 <p class="lead"></p>
                 <button type="button" @click="this.$router.push('/recommend')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Recommendation</button>
-                <button type="button" @click="this.$router.push('/course/feedback')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Feedback</button>
-                <button type="button" @click="this.$router.push('/courses')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Courses</button>
-            </div>
+                <button type="button" @click="this.$router.push('/feedback')" class="btn btn-primary btn-lg mt-3 mx-auto d-block" style="background-color: #1A2E35;">Feedback</button>
+                 </div>
             
             <div v-else-if="usertype=='pod'">
                 <h1 class="display-4 fw-bold text-body-emphasis lh-1 mb-2">Navigate Your Learning Journey</h1>
