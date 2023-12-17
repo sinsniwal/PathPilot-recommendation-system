@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Login API
+  version: 1.0.0.0
+  description: Login for students and pods
+servers:
+  - url: https://127.0.0.1:5000
+    variables: {}
+paths:
+  /login:
+    description: login
+    post:
+      summary: ''
+      description: enter username and password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: username
+                password:
+                  type: string
+                  example: password
+      operationId: '1'
+      responses:
+        '201':
+          description: success - logged in
+          content:
+            application/json:
+              examples:
+                Successfully logged in:
+                  value: '{login: Success}'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                bad request:
+                  value: Bad request
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              examples:
+                Internal error:
+                  value: Internal error
+        default:
+          description: Default error sample response
+  /register:
+    description: register new students
+    post:
+      summary: ''
+      description: Registers a new student
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: username
+                password:
+                  type: string
+                  example: password
+                firstname:
+                  type: string
+                  example: firstname
+                lastname:
+                  type: string
+                  example: lastname
+                email:
+                  type: string
+                  example: abc@abcmail.com
+                mobile:
+                  type: integer
+                  example: 1234567890
+      operationId: '2'
+      responses:
+        '201':
+          description: success - registered
+          content:
+            application/json:
+              examples:
+                Successfully Registered:
+                  value: '{Register: Success}'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                bad request:
+                  value: Bad request
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              examples:
+                Internal error:
+                  value: Internal error
+        default:
+          description: Default error sample response
+  /support/faq:
+    description: frequently asked questions
+    get:
+      summary: ''
+      description: frequently asked questions
+      operationId: '5'
+      responses:
+        default:
+          description: Default error sample response
+          
+  /support/help:
+    description: help me page
+    get:
+      summary: ''
+      description: contains a help video
+      operationId: '6'
+      responses:
+        default:
+          description: Default error sample response
+  /support/readme:
+    description: readme
+    get:
+      summary: ''
+      description: readme page
+      operationId: '7'
+      responses:
+        default:
+          description: Default error sample response
